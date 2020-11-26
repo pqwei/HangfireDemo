@@ -1,9 +1,13 @@
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +27,24 @@ namespace HangfireDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddControllers();
+
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+           .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+           .UseSimpleAssemblyNameTypeSerializer()
+           .UseRecommendedSerializerSettings()
+           .UseSqlServerStorage(Configuration.GetConnectionString("DataAggregationConnection"), new SqlServerStorageOptions
+           {
+               CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+               SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+               QueuePollInterval = TimeSpan.FromSeconds(15), // Default value,
+               UseRecommendedIsolationLevel = true,
+               UsePageLocksOnDequeue = true,
+               DisableGlobalLocks = true
+           }));
+
+            services.AddHangfireServer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,23 +54,27 @@ namespace HangfireDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
+            var jobOptions = new BackgroundJobServerOptions
+            {
+                Queues = new[] { "back", "front", "default" },//队列名称，只能为小写
+                WorkerCount = Environment.ProcessorCount * 5, //并发任务数
+                ServerName = "conference hangfire1",//服务器名称
+            };
+
+            app.UseHangfireServer(jobOptions);//启动Hangfire服务
+
+            app.UseHangfireDashboard();//启动hangfire面板
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
