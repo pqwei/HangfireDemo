@@ -5,10 +5,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace HangfireDemo.Jobs
+namespace HangfireDemo.Jobs.JobHelper
 {
     /// <summary>
-    /// 延迟性任务
+    /// 延迟任务执行(Delayed jobs)
     /// </summary>
     public static class DelayedJob
     {
@@ -28,9 +28,10 @@ namespace HangfireDemo.Jobs
         /// </summary>
         /// <param name="expression">执行的函数</param>
         /// <param name="minute">延迟的分钟数</param>
-        public static void AddOrUpdate(Expression<Action> expression, int minute)
+        public static string AddOrUpdate(Expression<Action> expression, int minute)
         {
-            BackgroundJob.Schedule(expression, TimeSpan.FromMinutes(minute));
+            string workName = BackgroundJob.Schedule(expression, TimeSpan.FromMinutes(minute));
+            return workName;
         }
 
     }

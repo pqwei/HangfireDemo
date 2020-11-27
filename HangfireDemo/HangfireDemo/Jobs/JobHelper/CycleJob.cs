@@ -1,14 +1,15 @@
 ﻿using Hangfire;
+using HangfireDemo.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace HangfireDemo.Jobs
+namespace HangfireDemo.Jobs.JobHelper
 {
     /// <summary>
-    /// 周期性任务
+    /// 定时任务执行(Recurring jobs)
     /// </summary>
     public static class CycleJob
     {

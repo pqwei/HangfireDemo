@@ -1,21 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hangfire;
+using HangfireDemo.Handlers;
+using HangfireDemo.Jobs;
+using HangfireDemo.Jobs.JobHelper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace HangfireDemo.Controllers
 {
-    public class JobController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class JobController : ControllerBase
     {
-        public IActionResult Index()
+
+        [HttpGet("AddOrUpdateCycleJob")]
+        public string AddOrUpdateCycleJob(string workName)
         {
-            return View();
+            Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob();
+            CycleJob.AddOrUpdate(workName, expression, CycleCronType.Minute());
+            return "AddOrUpdateCycleJob成功";
         }
 
-        public IActionResult Index()
+        [HttpGet("AddOrUpdateDelayedJob")]
+        public string AddOrUpdateDelayedJob()
         {
-            return View();
+            Expression<Action> expression = () => JobHandler.AddOrUpdateDelayedJob();
+            string workName = DelayedJob.AddOrUpdate(expression, 10);
+            return $"AddOrUpdateDelayedJob成功,Jon名{workName}";
         }
+
+        [HttpGet("AddOrUpdateQueueJob")]
+        public string AddOrUpdateQueueJob()
+        {
+            Expression<Action> expression = () => JobHandler.AddOrUpdateQueueJob();
+            string workName = QueueJob.AddOrUpdate(expression);
+            return $"AddOrUpdateQueueJob成功,Jon名{workName}";
+        }
+
+        [HttpGet("AddOrUpdateContinueJob")]
+        public string AddOrUpdateContinueJob(string parentId)
+        {
+            Expression<Action> expression = () => JobHandler.AddOrUpdateContinueJob();
+            string workName = ContinueJob.AddOrUpdate(parentId, expression);
+            return $"AddOrUpdateContinueJob成功,Jon名{workName}";
+        }
+
     }
 }

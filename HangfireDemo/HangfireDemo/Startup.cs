@@ -4,19 +4,27 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace HangfireDemo
 {
     public class Startup
     {
+        /// <summary>
+        /// Api版本信息
+        /// </summary>
+        private IApiVersionDescriptionProvider provider;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +36,52 @@ namespace HangfireDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddApiVersioning(option =>
+            {
+                // 可选，为true时API返回支持的版本信息
+                option.ReportApiVersions = true;
+                // 不提供版本时，默认为1.0
+                option.AssumeDefaultVersionWhenUnspecified = true;
+                // 请求中未指定版本时默认为1.0
+                option.DefaultApiVersion = new ApiVersion(1, 0);
+            }).AddVersionedApiExplorer(option =>
+            {　　　　　　　　　　// 版本名的格式：v+版本号
+                option.GroupNameFormat = "'v'V";
+                option.AssumeDefaultVersionWhenUnspecified = true;
+            });
+
+            this.provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+            // 注册Swagger服务
+            services.AddSwaggerGen(c =>
+            {
+                // 多版本控制
+                foreach (var item in provider.ApiVersionDescriptions)
+                {
+                    // 添加文档信息
+                    c.SwaggerDoc(item.GroupName, new OpenApiInfo
+                    {
+                        Title = "CoreWebApi",
+                        Version = item.ApiVersion.ToString(),
+                        Description = "ASP.NET CORE WebApi",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "魏朋强",
+                            Email = "1531258932@qq.com",
+                            Url = new Uri("https://cn.bing.com/")
+                        }
+                    });
+                }
+                #region 读取xml信息
+
+                //使用反射获取xml文件。并构造出文件的路径
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                // 启用xml注释. 该方法第二个参数启用控制器的注释，默认为false.
+                c.IncludeXmlComments(xmlPath, true);
+                #endregion
+
+            });
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
@@ -54,6 +108,17 @@ namespace HangfireDemo
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            // 配置SwaggerUI
+            app.UseSwaggerUI(c =>
+            {
+                foreach (var item in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", "CoreAPI" + item.ApiVersion);
+                }
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 

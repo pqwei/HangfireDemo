@@ -5,10 +5,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace HangfireDemo.Jobs
+namespace HangfireDemo.Jobs.JobHelper
 {
     /// <summary>
-    /// 队列任务
+    /// 基于队列的任务处理(Fire-and-forget jobs)
     /// </summary>
     public static class QueueJob
     {
@@ -25,9 +25,10 @@ namespace HangfireDemo.Jobs
         /// 创建队列任务
         /// </summary>
         /// <param name="expression">执行的函数</param>
-        public static void AddOrUpdate(Expression<Action> expression)
+        public static string AddOrUpdate(Expression<Action> expression)
         {
-            BackgroundJob.Enqueue(expression);
+            string workName = BackgroundJob.Enqueue(expression);
+            return workName;
         }
 
     }
