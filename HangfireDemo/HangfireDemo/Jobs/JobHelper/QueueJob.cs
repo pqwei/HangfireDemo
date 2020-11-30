@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using HangfireDemo.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +17,21 @@ namespace HangfireDemo.Jobs.JobHelper
         /// 创建队列任务
         /// </summary>
         /// <param name="expression">执行的函数</param>
-        public static void AddOrUpdate(Expression<Func<Task>> expression)
+        public static ResponseModel<string> AddOrUpdate(Expression<Func<Task>> expression)
         {
-            BackgroundJob.Enqueue(expression);
+            string jobId = BackgroundJob.Enqueue(expression);
+            return jobId.ToResponseModel();
         }
 
         /// <summary>
         /// 创建队列任务
         /// </summary>
         /// <param name="expression">执行的函数</param>
-        public static string AddOrUpdate(Expression<Action> expression)
+        public static ResponseModel<string> AddOrUpdate(Expression<Action> expression)
         {
-            string workName = BackgroundJob.Enqueue(expression);
-            return workName;
+            string jobId = BackgroundJob.Enqueue(expression);
+            return jobId.ToResponseModel();
         }
-
     }
 
 }

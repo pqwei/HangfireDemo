@@ -12,7 +12,7 @@ namespace HangfireDemo.Jobs.JobHelper
     public static class CycleCronType
     {
         /// <summary>
-        /// 创建/更新名称为workName周期性为分钟的任务
+        /// 创建/更新名称为jobId周期性为分钟的任务
         /// </summary>
         /// <param name="interval">执行周期的间隔，默认为每分钟一次</param>
         /// <returns></returns>
@@ -22,7 +22,7 @@ namespace HangfireDemo.Jobs.JobHelper
         }
 
         /// <summary>
-        /// 创建/更新名称为workName周期性为小时的任务
+        /// 创建/更新名称为jobId周期性为小时的任务
         /// </summary>
         /// <param name="minute">第几分钟开始，默认为第一分钟</param>
         /// <param name="interval">执行周期的间隔，默认为每小时一次</param>
@@ -33,7 +33,7 @@ namespace HangfireDemo.Jobs.JobHelper
         }
 
         /// <summary>
-        /// 创建/更新名称为workName周期性为天的任务
+        /// 创建/更新名称为jobId周期性为天的任务
         /// </summary>
         /// <param name="hour">第几小时开始，默认从1点开始</param>
         /// <param name="minute">第几分钟开始，默认从第1分钟开始</param>
@@ -45,7 +45,7 @@ namespace HangfireDemo.Jobs.JobHelper
         }
 
         /// <summary>
-        /// 创建/更新名称为workName周期性为周的任务
+        /// 创建/更新名称为jobId周期性为周的任务
         /// </summary>
         /// <param name="dayOfWeek">星期几开始，默认从星期一点开始</param>
         /// <param name="hour">第几小时开始，默认从1点开始</param>
@@ -58,7 +58,7 @@ namespace HangfireDemo.Jobs.JobHelper
         }
 
         /// <summary>
-        /// 创建/更新名称为workName周期性为月的任务
+        /// 创建/更新名称为jobId周期性为月的任务
         /// </summary>
         /// <param name="day">几号开始，默认从一号开始</param>
         /// <param name="hour">第几小时开始，默认从1点开始</param>
@@ -71,7 +71,7 @@ namespace HangfireDemo.Jobs.JobHelper
         }
 
         /// <summary>
-        /// 创建/更新名称为workName周期性为年的任务
+        /// 创建/更新名称为jobId周期性为年的任务
         /// </summary>
         /// <param name="month">几月开始，默认从一月开始</param>
         /// <param name="day">几号开始，默认从一号开始</param>

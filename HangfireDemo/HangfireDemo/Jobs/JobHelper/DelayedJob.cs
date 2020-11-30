@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using HangfireDemo.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace HangfireDemo.Jobs.JobHelper
         /// </summary>
         /// <param name="expression">执行的函数</param>
         /// <param name="minute">延迟的分钟数</param>
-        public static void AddOrUpdate(Expression<Func<Task>> expression, int minute)
+        public static ResponseModel<string> AddOrUpdate(Expression<Func<Task>> expression, int minute)
         {
-            BackgroundJob.Schedule(expression, TimeSpan.FromMinutes(minute));
+            string jobId =BackgroundJob.Schedule(expression, TimeSpan.FromMinutes(minute));
+            return jobId.ToResponseModel();
         }
 
 
@@ -28,10 +30,10 @@ namespace HangfireDemo.Jobs.JobHelper
         /// </summary>
         /// <param name="expression">执行的函数</param>
         /// <param name="minute">延迟的分钟数</param>
-        public static string AddOrUpdate(Expression<Action> expression, int minute)
+        public static ResponseModel<string> AddOrUpdate(Expression<Action> expression, int minute)
         {
-            string workName = BackgroundJob.Schedule(expression, TimeSpan.FromMinutes(minute));
-            return workName;
+            string jobId = BackgroundJob.Schedule(expression, TimeSpan.FromMinutes(minute));
+            return jobId.ToResponseModel();
         }
 
     }

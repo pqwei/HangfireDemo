@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using HangfireDemo.Common;
 using HangfireDemo.Handlers;
 using HangfireDemo.Jobs;
 using HangfireDemo.Jobs.JobHelper;
@@ -17,35 +18,42 @@ namespace HangfireDemo.Controllers
     {
 
         [HttpGet("AddOrUpdateCycleJob")]
-        public string AddOrUpdateCycleJob(string workName)
+        public ResponseModel<string> AddOrUpdateCycleJob(string jobId)
         {
             Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob();
-            CycleJob.AddOrUpdate(workName, expression, CycleCronType.Minute());
-            return "AddOrUpdateCycleJob成功";
+            CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
+            return string.Empty.ToResponseModel();
+        }
+
+        [HttpDelete("DeleteCycleJob")]
+        public ResponseModel<bool> DeleteCycleJob(string jobId)
+        {
+            if (!int.TryParse(jobId, out int result))
+            {
+                return false.ToResponseModel("jobId格式不正确，必须为数字");
+            }
+            return CycleJob.Delete(jobId);
         }
 
         [HttpGet("AddOrUpdateDelayedJob")]
-        public string AddOrUpdateDelayedJob()
+        public ResponseModel<string> AddOrUpdateDelayedJob()
         {
             Expression<Action> expression = () => JobHandler.AddOrUpdateDelayedJob();
-            string workName = DelayedJob.AddOrUpdate(expression, 10);
-            return $"AddOrUpdateDelayedJob成功,Jon名{workName}";
+            return DelayedJob.AddOrUpdate(expression, 10);
         }
 
         [HttpGet("AddOrUpdateQueueJob")]
-        public string AddOrUpdateQueueJob()
+        public ResponseModel<string> AddOrUpdateQueueJob()
         {
             Expression<Action> expression = () => JobHandler.AddOrUpdateQueueJob();
-            string workName = QueueJob.AddOrUpdate(expression);
-            return $"AddOrUpdateQueueJob成功,Jon名{workName}";
+            return QueueJob.AddOrUpdate(expression);
         }
 
         [HttpGet("AddOrUpdateContinueJob")]
-        public string AddOrUpdateContinueJob(string parentId)
+        public ResponseModel<string> AddOrUpdateContinueJob(string parentId)
         {
             Expression<Action> expression = () => JobHandler.AddOrUpdateContinueJob();
-            string workName = ContinueJob.AddOrUpdate(parentId, expression);
-            return $"AddOrUpdateContinueJob成功,Jon名{workName}";
+            return ContinueJob.AddOrUpdate(parentId, expression);
         }
 
     }
