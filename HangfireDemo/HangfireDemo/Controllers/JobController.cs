@@ -1,8 +1,7 @@
 ﻿using Hangfire;
 using HangfireDemo.Common;
-using HangfireDemo.Handlers;
-using HangfireDemo.Jobs;
-using HangfireDemo.Jobs.JobHelper;
+using HangfireDemo.Common.JobHelper;
+using HangfireDemo.Handler;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,10 @@ namespace HangfireDemo.Controllers
         [HttpGet("AddOrUpdateCycleJob")]
         public ResponseModel<string> AddOrUpdateCycleJob(string jobId)
         {
-            Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob();
+            //Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob();
+            //CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
+
+            Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob(jobId);
             CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
             return string.Empty.ToResponseModel();
         }

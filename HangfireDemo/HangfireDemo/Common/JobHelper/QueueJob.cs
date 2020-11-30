@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace HangfireDemo.Jobs.JobHelper
+namespace HangfireDemo.Common.JobHelper
 {
     /// <summary>
     /// 基于队列的任务处理(Fire-and-forget jobs)

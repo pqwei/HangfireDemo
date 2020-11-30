@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HangfireDemo.Jobs.JobHelper
+namespace HangfireDemo.Common.JobHelper
 {
     /// <summary>
     /// 周期性内容的Cron生成器

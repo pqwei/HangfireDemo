@@ -4,6 +4,127 @@
         <name>HangfireDemo</name>
     </assembly>
     <members>
+        <member name="T:HangfireDemo.Common.JobHelper.ContinueJob">
+            <summary>
+            延续性任务执行(Continuations)
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Common.JobHelper.ContinueJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}})" -->
+        <member name="M:HangfireDemo.Common.JobHelper.ContinueJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            创建/更新父节点名称为parentId的任务
+            </summary>
+            <param name="parentId"></param>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HangfireDemo.Common.JobHelper.CycleCronType">
+            <summary>
+            周期性内容的Cron生成器
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.CycleCronType.Minute(System.Int32)">
+            <summary>
+            创建/更新名称为jobId周期性为分钟的任务
+            </summary>
+            <param name="interval">执行周期的间隔，默认为每分钟一次</param>
+            <returns></returns>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.CycleCronType.Hour(System.Int32,System.Int32)">
+            <summary>
+            创建/更新名称为jobId周期性为小时的任务
+            </summary>
+            <param name="minute">第几分钟开始，默认为第一分钟</param>
+            <param name="interval">执行周期的间隔，默认为每小时一次</param>
+            <returns></returns>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.CycleCronType.Day(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建/更新名称为jobId周期性为天的任务
+            </summary>
+            <param name="hour">第几小时开始，默认从1点开始</param>
+            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
+            <param name="interval">执行周期的间隔，默认为每天一次</param>
+            <returns></returns>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.CycleCronType.Week(System.DayOfWeek,System.Int32,System.Int32)">
+            <summary>
+            创建/更新名称为jobId周期性为周的任务
+            </summary>
+            <param name="dayOfWeek">星期几开始，默认从星期一点开始</param>
+            <param name="hour">第几小时开始，默认从1点开始</param>
+            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.CycleCronType.Month(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建/更新名称为jobId周期性为月的任务
+            </summary>
+            <param name="day">几号开始，默认从一号开始</param>
+            <param name="hour">第几小时开始，默认从1点开始</param>
+            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.CycleCronType.Year(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建/更新名称为jobId周期性为年的任务
+            </summary>
+            <param name="month">几月开始，默认从一月开始</param>
+            <param name="day">几号开始，默认从一号开始</param>
+            <param name="hour">第几小时开始，默认从1点开始</param>
+            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
+            <returns></returns>
+        </member>
+        <member name="T:HangfireDemo.Common.JobHelper.CycleJob">
+            <summary>
+            定时任务执行(Recurring jobs)
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Common.JobHelper.CycleJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Common.JobHelper.CycleJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Action},System.String)" -->
+        <member name="M:HangfireDemo.Common.JobHelper.CycleJob.Delete(System.String)">
+            <summary>
+            删除job
+            </summary>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HangfireDemo.Common.JobHelper.DelayedJob">
+            <summary>
+            延迟任务执行(Delayed jobs)
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.DelayedJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.Int32)">
+            <summary>
+            创建延迟任务
+            </summary>
+            <param name="expression">执行的函数</param>
+            <param name="minute">延迟的分钟数</param>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.DelayedJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Action},System.Int32)">
+            <summary>
+            创建延迟任务
+            </summary>
+            <param name="expression">执行的函数</param>
+            <param name="minute">延迟的分钟数</param>
+        </member>
+        <member name="T:HangfireDemo.Common.JobHelper.QueueJob">
+            <summary>
+            基于队列的任务处理(Fire-and-forget jobs)
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.QueueJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}})">
+            <summary>
+            创建队列任务
+            </summary>
+            <param name="expression">执行的函数</param>
+        </member>
+        <member name="M:HangfireDemo.Common.JobHelper.QueueJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            创建队列任务
+            </summary>
+            <param name="expression">执行的函数</param>
+        </member>
         <member name="T:HangfireDemo.Common.ResponseModel`1">
             <summary>
             响应实体
@@ -29,126 +150,20 @@
             返回数据集合
             </summary>
         </member>
-        <member name="T:HangfireDemo.Jobs.JobHelper.ContinueJob">
+        <member name="T:HangfireDemo.Handler.JobHandler">
             <summary>
-            延续性任务执行(Continuations)
+            Job处理程序
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Jobs.JobHelper.ContinueJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}})" -->
-        <member name="M:HangfireDemo.Jobs.JobHelper.ContinueJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Action})">
+        <member name="T:HangfireDemo.Scheduler.TaskScheduler">
             <summary>
-            创建/更新父节点名称为parentId的任务
-            </summary>
-            <param name="parentId"></param>
-            <param name="expression"></param>
-            <returns></returns>
-        </member>
-        <member name="T:HangfireDemo.Jobs.JobHelper.CycleCronType">
-            <summary>
-            周期性内容的Cron生成器
+            Task调度器
             </summary>
         </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleCronType.Minute(System.Int32)">
+        <member name="F:HangfireDemo.Scheduler.TaskScheduler.WaitInvokeQueue">
             <summary>
-            创建/更新名称为jobId周期性为分钟的任务
+            待执行队列
             </summary>
-            <param name="interval">执行周期的间隔，默认为每分钟一次</param>
-            <returns></returns>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleCronType.Hour(System.Int32,System.Int32)">
-            <summary>
-            创建/更新名称为jobId周期性为小时的任务
-            </summary>
-            <param name="minute">第几分钟开始，默认为第一分钟</param>
-            <param name="interval">执行周期的间隔，默认为每小时一次</param>
-            <returns></returns>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleCronType.Day(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            创建/更新名称为jobId周期性为天的任务
-            </summary>
-            <param name="hour">第几小时开始，默认从1点开始</param>
-            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
-            <param name="interval">执行周期的间隔，默认为每天一次</param>
-            <returns></returns>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleCronType.Week(System.DayOfWeek,System.Int32,System.Int32)">
-            <summary>
-            创建/更新名称为jobId周期性为周的任务
-            </summary>
-            <param name="dayOfWeek">星期几开始，默认从星期一点开始</param>
-            <param name="hour">第几小时开始，默认从1点开始</param>
-            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
-            <returns></returns>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleCronType.Month(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            创建/更新名称为jobId周期性为月的任务
-            </summary>
-            <param name="day">几号开始，默认从一号开始</param>
-            <param name="hour">第几小时开始，默认从1点开始</param>
-            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
-            <returns></returns>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleCronType.Year(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            创建/更新名称为jobId周期性为年的任务
-            </summary>
-            <param name="month">几月开始，默认从一月开始</param>
-            <param name="day">几号开始，默认从一号开始</param>
-            <param name="hour">第几小时开始，默认从1点开始</param>
-            <param name="minute">第几分钟开始，默认从第1分钟开始</param>
-            <returns></returns>
-        </member>
-        <member name="T:HangfireDemo.Jobs.JobHelper.CycleJob">
-            <summary>
-            定时任务执行(Recurring jobs)
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Jobs.JobHelper.CycleJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Jobs.JobHelper.CycleJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Action},System.String)" -->
-        <member name="M:HangfireDemo.Jobs.JobHelper.CycleJob.Delete(System.String)">
-            <summary>
-            删除job
-            </summary>
-            <param name="jobId"></param>
-            <returns></returns>
-        </member>
-        <member name="T:HangfireDemo.Jobs.JobHelper.DelayedJob">
-            <summary>
-            延迟任务执行(Delayed jobs)
-            </summary>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.DelayedJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.Int32)">
-            <summary>
-            创建延迟任务
-            </summary>
-            <param name="expression">执行的函数</param>
-            <param name="minute">延迟的分钟数</param>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.DelayedJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Action},System.Int32)">
-            <summary>
-            创建延迟任务
-            </summary>
-            <param name="expression">执行的函数</param>
-            <param name="minute">延迟的分钟数</param>
-        </member>
-        <member name="T:HangfireDemo.Jobs.JobHelper.QueueJob">
-            <summary>
-            基于队列的任务处理(Fire-and-forget jobs)
-            </summary>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.QueueJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}})">
-            <summary>
-            创建队列任务
-            </summary>
-            <param name="expression">执行的函数</param>
-        </member>
-        <member name="M:HangfireDemo.Jobs.JobHelper.QueueJob.AddOrUpdate(System.Linq.Expressions.Expression{System.Action})">
-            <summary>
-            创建队列任务
-            </summary>
-            <param name="expression">执行的函数</param>
         </member>
         <member name="F:HangfireDemo.Startup.provider">
             <summary>

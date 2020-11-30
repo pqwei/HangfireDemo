@@ -1,13 +1,12 @@
 ﻿using Hangfire;
 using HangfireDemo.Common;
-using HangfireDemo.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace HangfireDemo.Jobs.JobHelper
+namespace HangfireDemo.Common.JobHelper
 {
     /// <summary>
     /// 定时任务执行(Recurring jobs)

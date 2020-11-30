@@ -16,6 +16,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using HangfireDemo.Scheduler;
+using TaskScheduler = HangfireDemo.Scheduler.TaskScheduler;
 
 namespace HangfireDemo
 {
@@ -36,6 +38,9 @@ namespace HangfireDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //×¢²áTaskµ÷¶ÈÆ÷
+            services.AddSingleton(new TaskScheduler());
 
             services.AddApiVersioning(option =>
             {
