@@ -82,13 +82,6 @@
         </member>
         <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Common.JobHelper.CycleJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.String)" -->
         <!-- Badly formed XML comment ignored for member "M:HangfireDemo.Common.JobHelper.CycleJob.AddOrUpdate(System.String,System.Linq.Expressions.Expression{System.Action},System.String)" -->
-        <member name="M:HangfireDemo.Common.JobHelper.CycleJob.Delete(System.String)">
-            <summary>
-            删除job
-            </summary>
-            <param name="jobId"></param>
-            <returns></returns>
-        </member>
         <member name="T:HangfireDemo.Common.JobHelper.DelayedJob">
             <summary>
             延迟任务执行(Delayed jobs)
@@ -150,20 +143,30 @@
             返回数据集合
             </summary>
         </member>
-        <member name="T:HangfireDemo.Handler.JobHandler">
+        <member name="T:HangfireDemo.Handlers.JobHandler">
             <summary>
             Job处理程序
             </summary>
         </member>
-        <member name="T:HangfireDemo.Scheduler.TaskScheduler">
+        <member name="F:HangfireDemo.Handlers.TaskHandler.DataCalculateNodes">
             <summary>
-            Task调度器
+            DataCalculate节点
             </summary>
         </member>
-        <member name="F:HangfireDemo.Scheduler.TaskScheduler.WaitInvokeQueue">
+        <member name="M:HangfireDemo.Handlers.TaskHandler.Invoke(System.Int32,System.Object)">
             <summary>
-            待执行队列
+            执行Task
             </summary>
+            <param name="taskId"></param>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:HangfireDemo.Handlers.TaskHandler.InvokeDataCalculate(System.String,System.Int32,System.Object)">
+            <summary>
+            执行DataCalculate
+            </summary>
+            <param name="dataCalculateNode"></param>
+            <param name="taskId"></param>
+            <param name="parameter"></param>
         </member>
         <member name="F:HangfireDemo.Startup.provider">
             <summary>

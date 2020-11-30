@@ -1,7 +1,7 @@
 ﻿using Hangfire;
 using HangfireDemo.Common;
 using HangfireDemo.Common.JobHelper;
-using HangfireDemo.Handler;
+using HangfireDemo.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,48 +15,30 @@ namespace HangfireDemo.Controllers
     [ApiController]
     public class JobController : ControllerBase
     {
-
         [HttpGet("AddOrUpdateCycleJob")]
         public ResponseModel<string> AddOrUpdateCycleJob(string jobId)
         {
-            //Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob();
-            //CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
-
-            Expression<Action> expression = () => JobHandler.AddOrUpdateCycleJob(jobId);
-            CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
+            Expression<Action> expression = () => JobHandler.Invoke(jobId);
+            CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Hour());
             return string.Empty.ToResponseModel();
         }
 
-        [HttpDelete("DeleteCycleJob")]
-        public ResponseModel<bool> DeleteCycleJob(string jobId)
+        [HttpGet("InvokeTask")]
+        public ResponseModel<string> InvokeTask(int taskId, object parameter)
         {
-            if (!int.TryParse(jobId, out int result))
+            TaskHandler.Invoke(taskId, parameter);
+            return string.Empty.ToResponseModel();
+        }
+
+        [HttpDelete("DeleteJob")]
+        public ResponseModel<bool> DeleteJob(string jobId)
+        {
+            if (!int.TryParse(jobId, out int num))
             {
                 return false.ToResponseModel("jobId格式不正确，必须为数字");
             }
-            return CycleJob.Delete(jobId);
+            var result = BackgroundJob.Delete(jobId);
+            return result.ToResponseModel(result);
         }
-
-        [HttpGet("AddOrUpdateDelayedJob")]
-        public ResponseModel<string> AddOrUpdateDelayedJob()
-        {
-            Expression<Action> expression = () => JobHandler.AddOrUpdateDelayedJob();
-            return DelayedJob.AddOrUpdate(expression, 10);
-        }
-
-        [HttpGet("AddOrUpdateQueueJob")]
-        public ResponseModel<string> AddOrUpdateQueueJob()
-        {
-            Expression<Action> expression = () => JobHandler.AddOrUpdateQueueJob();
-            return QueueJob.AddOrUpdate(expression);
-        }
-
-        [HttpGet("AddOrUpdateContinueJob")]
-        public ResponseModel<string> AddOrUpdateContinueJob(string parentId)
-        {
-            Expression<Action> expression = () => JobHandler.AddOrUpdateContinueJob();
-            return ContinueJob.AddOrUpdate(parentId, expression);
-        }
-
     }
 }

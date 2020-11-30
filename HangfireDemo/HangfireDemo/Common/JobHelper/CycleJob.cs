@@ -28,17 +28,5 @@ namespace HangfireDemo.Common.JobHelper
         {
             RecurringJob.AddOrUpdate(jobId, expression, cronType, TimeZoneInfo.Local);
         }
-
-        /// <summary>
-        /// 删除job
-        /// </summary>
-        /// <param name="jobId"></param>
-        /// <returns></returns>
-        public static ResponseModel<bool> Delete(string jobId)
-        {
-            var result = BackgroundJob.Delete(jobId);
-            return result.ToResponseModel(result);
-        }
-
     }
 }

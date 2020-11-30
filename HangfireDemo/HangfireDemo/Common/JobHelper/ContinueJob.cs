@@ -13,7 +13,6 @@ namespace HangfireDemo.Common.JobHelper
     /// </summary>
     public class ContinueJob
     {
-
         // <summary>
         /// 创建/更新父节点名称为parentId的任务
         ///</summary>

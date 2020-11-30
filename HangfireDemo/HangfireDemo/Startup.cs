@@ -16,8 +16,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using HangfireDemo.Scheduler;
-using TaskScheduler = HangfireDemo.Scheduler.TaskScheduler;
 
 namespace HangfireDemo
 {
@@ -38,9 +36,6 @@ namespace HangfireDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            //注册Task调度器
-            services.AddSingleton(new TaskScheduler());
 
             services.AddApiVersioning(option =>
             {
@@ -134,7 +129,8 @@ namespace HangfireDemo
             var jobOptions = new BackgroundJobServerOptions
             {
                 Queues = new[] { "back", "front", "default" },//队列名称，只能为小写
-                WorkerCount = Environment.ProcessorCount * 5, //并发任务数
+                //WorkerCount = Environment.ProcessorCount * 5, //并发任务数
+                WorkerCount = Environment.ProcessorCount, //并发任务数
                 ServerName = "conference hangfire1",//服务器名称
             };
 
