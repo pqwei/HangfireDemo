@@ -46,7 +46,7 @@ namespace HangfireDemo.Handlers
             var isSuccess = InvokeDataCalculate(dataCalculateNode, taskId, parameter);
             if (!isSuccess)
             {
-                //dataCalculateNode节点执行方法
+                //dataCalculate节点执行方法
                 //成功的话，取子task加入队列
                 Expression<Action> expression = () => Invoke(taskId, null);
                 var jobId = QueueJob.AddOrUpdate(expression);
