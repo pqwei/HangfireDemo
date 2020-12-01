@@ -16,7 +16,7 @@ namespace HangfireDemo.Handlers
         {
             //根据jobId取没有父节点的task，加入待处理队列
             int taskId = 0;
-            Expression<Action> expression = () => TaskHandler.Invoke(taskId, null);
+            Expression<Action> expression = () => TaskHandler.Invoke(jobId, taskId, null);
             QueueJob.AddOrUpdate(expression);
         }
     }

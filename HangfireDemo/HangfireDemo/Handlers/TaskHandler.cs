@@ -22,7 +22,7 @@ namespace HangfireDemo.Handlers
         /// </summary>
         /// <param name="taskId"></param>
         /// <param name="parameter"></param>
-        public static void Invoke(int taskId, object parameter)
+        public static void Invoke(string jobId, int taskId, object parameter)
         {
             string dataCalculateNode = string.Empty;
             DataCalculateNodes = new List<string>() { "asfsdf" };
@@ -48,8 +48,8 @@ namespace HangfireDemo.Handlers
             {
                 //dataCalculate节点执行方法
                 //成功的话，取子task加入队列
-                Expression<Action> expression = () => Invoke(taskId, null);
-                var jobId = QueueJob.AddOrUpdate(expression);
+                Expression<Action> expression = () => Invoke(jobId, taskId, null);
+                QueueJob.AddOrUpdate(expression);
             }
         }
 
