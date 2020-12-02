@@ -47,7 +47,7 @@ namespace HangfireDemo.Handlers
             if (!isSuccess)
             {
                 //dataCalculate节点执行方法
-                //成功的话，取子task加入队列
+                //成功的话，取子task，筛选父节点全部执行完毕的子节点加入队列
                 Expression<Action> expression = () => Invoke(jobId, taskId, null);
                 QueueJob.AddOrUpdate(expression);
             }
