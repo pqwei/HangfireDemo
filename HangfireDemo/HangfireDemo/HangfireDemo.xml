@@ -168,6 +168,71 @@
             <param name="taskId"></param>
             <param name="parameter"></param>
         </member>
+        <member name="T:HangfireDemo.Models.CycleJob">
+            <summary>
+            定时Job表
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Models.CycleJob.#ctor">
+            <summary>
+            定时Job表
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJob.Id">
+            <summary>
+            JobId
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJob.JobName">
+            <summary>
+            Job名
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJob.CycleCron">
+            <summary>
+            Job执行规则
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJob.LastDateTime">
+            <summary>
+            Job最后一次执行时间
+            </summary>
+        </member>
+        <member name="T:HangfireDemo.Models.CycleJobTask">
+            <summary>
+            定时Job任务表
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Models.CycleJobTask.#ctor">
+            <summary>
+            定时Job任务表
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJobTask.Id">
+            <summary>
+            定时Job任务Id
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJobTask.FK_CycleJob">
+            <summary>
+            定时JobId
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJobTask.FK_ParentTask">
+            <summary>
+            父TaskId
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJobTask.LastDateTime">
+            <summary>
+            Job最后一次执行时间
+            </summary>
+        </member>
+        <member name="P:HangfireDemo.Models.CycleJobTask.LastResult">
+            <summary>
+            最后一次调用的结果
+            </summary>
+        </member>
         <member name="F:HangfireDemo.Startup.provider">
             <summary>
             Api版本信息

@@ -19,7 +19,7 @@ namespace HangfireDemo.Controllers
         public ResponseModel<string> AddOrUpdateCycleJob(string jobId)
         {
             Expression<Action> expression = () => JobHandler.Invoke(jobId);
-            CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Hour());
+            CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
             return string.Empty.ToResponseModel();
         }
 

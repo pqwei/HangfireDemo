@@ -1,10 +1,12 @@
 using Hangfire;
 using Hangfire.SqlServer;
+using HangfireDemo.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -82,6 +84,8 @@ namespace HangfireDemo
                 #endregion
 
             });
+
+            services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DataAggregationConnection"), o => o.CommandTimeout(60000)));
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
