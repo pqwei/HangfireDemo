@@ -4,6 +4,44 @@
         <name>HangfireDemo</name>
     </assembly>
     <members>
+        <member name="T:HangfireDemo.Common.EnumUtil">
+            <summary>
+            枚举数据静态类
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Common.EnumUtil.IntValueToEnum(System.Type,System.Int32)">
+            <summary>
+            从Enum中任意取一个Int值，将其转化成枚举类型值
+            </summary>
+            <param name="protocolType"></param>
+            <param name="enumValue"></param>
+            <returns></returns>
+            <example>ExampleNormalEnum status  = (ExampleNormalEnum)EnumHelper.IntValueToEnum( typeof( ExampleNormalEnum ), 1); 得到值为 ExampleNormalEnum.Online </example>
+        </member>
+        <member name="M:HangfireDemo.Common.EnumUtil.EnumValueToInt(System.Type,System.Object)">
+            <summary>
+            Enums the value to int.
+            </summary>
+            <param name="protocolType">Type of the protocol.</param>
+            <param name="enumValue">The enum value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:HangfireDemo.Common.EnumUtil.StringValueToEnum(System.Type,System.String)">
+            <summary>
+            从Enum中任意取一个String值，将其转化成枚举类型值
+            </summary>
+            <param name="enumType"></param>
+            <param name="enumStringValue"></param>
+            <returns></returns>
+            <example>ExampleNormalEnum status  = (ExampleNormalEnum)EnumHelper.StringValueToEnum( typeof( ExampleNormalEnum ), "Offline");得到值为 ExampleNormalEnum.Offline</example>
+        </member>
+        <member name="M:HangfireDemo.Common.EnumUtil.GetEnumIntValues(System.Type)">
+            <summary>
+            得到一个Enum中的所有Int值
+            </summary>
+            <param name="protocolType"></param>
+            <returns></returns>
+        </member>
         <member name="T:HangfireDemo.Common.JobHelper.ContinueJob">
             <summary>
             延续性任务执行(Continuations)
@@ -241,14 +279,14 @@
             父TaskId
             </summary>
         </member>
-        <member name="P:HangfireDemo.Models.CycleJobTask.LastDateTime">
+        <member name="P:HangfireDemo.Models.CycleJobTask.LastStatus">
             <summary>
-            Job最后一次执行时间
+            最后一次执行状态(0未执行 1执行成功 2执行失败)
             </summary>
         </member>
-        <member name="P:HangfireDemo.Models.CycleJobTask.LastResult">
+        <member name="P:HangfireDemo.Models.CycleJobTask.LastDateTime">
             <summary>
-            最后一次调用的结果
+            最后一次执行时间
             </summary>
         </member>
         <member name="F:HangfireDemo.Startup.provider">

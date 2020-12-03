@@ -35,16 +35,16 @@ namespace HangfireDemo.Models
         /// </summary>
         public System.Int32 FK_ParentTask { get { return this._FK_ParentTask; } set { this._FK_ParentTask = value; } }
 
+        private System.Int32 _LastStatus;
+        /// <summary>
+        /// 最后一次执行状态(0未执行 1执行成功 2执行失败)
+        /// </summary>
+        public System.Int32 LastStatus { get { return this._LastStatus; } set { this._LastStatus = value; } }
+
         private System.DateTime? _LastDateTime;
         /// <summary>
-        /// Job最后一次执行时间
+        /// 最后一次执行时间
         /// </summary>
         public System.DateTime? LastDateTime { get { return this._LastDateTime; } set { this._LastDateTime = value; } }
-
-        private System.String _LastResult;
-        /// <summary>
-        /// 最后一次调用的结果
-        /// </summary>
-        public System.String LastResult { get { return this._LastResult; } set { this._LastResult = value; } }
     }
 }
