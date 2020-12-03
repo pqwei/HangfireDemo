@@ -18,6 +18,10 @@ namespace HangfireDemo.Controllers
         [HttpGet("AddOrUpdateCycleJob")]
         public ResponseModel<string> AddOrUpdateCycleJob(string jobId)
         {
+            if (!string.IsNullOrEmpty(jobId))
+            {
+                throw new Exception("dfgfdgfd");
+            }
             Expression<Action> expression = () => JobHandler.Invoke(jobId);
             CycleJob.AddOrUpdate(jobId, expression, CycleCronType.Minute());
             return string.Empty.ToResponseModel();

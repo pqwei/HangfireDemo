@@ -143,6 +143,24 @@
             返回数据集合
             </summary>
         </member>
+        <member name="T:HangfireDemo.Filters.GlobalExceptionFilter">
+            <summary>
+            全局异常过滤器
+            </summary>
+        </member>
+        <member name="M:HangfireDemo.Filters.GlobalExceptionFilter.WriteLog(System.Exception)">
+            <summary>
+            自定义返回格式
+            </summary>
+            <param name="throwMsg"></param>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HangfireDemo.Filters.GlobalExceptionFilter.InternalServerErrorObjectResult">
+            <summary>
+            状态码为 500 服务器错误
+            </summary>
+        </member>
         <member name="T:HangfireDemo.Handlers.JobHandler">
             <summary>
             Job处理程序

@@ -1,5 +1,6 @@
 using Hangfire;
 using Hangfire.SqlServer;
+using HangfireDemo.Filters;
 using HangfireDemo.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -103,6 +104,11 @@ namespace HangfireDemo
            }));
 
             services.AddHangfireServer();
+
+            services.AddControllers(s =>
+            {
+                s.Filters.Add(typeof(GlobalExceptionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

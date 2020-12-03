@@ -18,6 +18,14 @@ namespace HangfireDemo
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                //log4net ÅäÖÃ
+                .ConfigureLogging((context, loggingBuilder) =>
+                {
+                    loggingBuilder.AddFilter("System", LogLevel.Information);
+                    loggingBuilder.AddFilter("Microsoft", LogLevel.Information);
+                    var path = context.HostingEnvironment.ContentRootPath;
+                    loggingBuilder.AddLog4Net($"{path}/log4net.config");//ÅäÖÃÎÄ¼þ
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
