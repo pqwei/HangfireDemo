@@ -28,9 +28,9 @@ namespace HangfireDemo.Controllers
         }
 
         [HttpGet("InvokeTask")]
-        public ResponseModel<string> InvokeTask(string jobId, int taskId, object parameter)
+        public ResponseModel<string> InvokeTask(string jobId, int taskId, params object[] parameters)
         {
-            TaskHandler.Invoke(jobId, taskId, parameter);
+            TaskHandler.Invoke(jobId, taskId, parameters);
             return string.Empty.ToResponseModel();
         }
 

@@ -21,8 +21,8 @@ namespace HangfireDemo.Handlers
         /// 执行Task
         /// </summary>
         /// <param name="taskId"></param>
-        /// <param name="parameter"></param>
-        public static void Invoke(string jobId, int taskId, object parameter)
+        /// <param name="parameters"></param>
+        public static void Invoke(string jobId, int taskId, params object[] parameters)
         {
             string dataCalculateNode = string.Empty;
             DataCalculateNodes = new List<string>() { "asfsdf" };
@@ -43,7 +43,7 @@ namespace HangfireDemo.Handlers
                 }
             }
 
-            var isSuccess = InvokeDataCalculate(dataCalculateNode, taskId, parameter);
+            var isSuccess = InvokeDataCalculate(dataCalculateNode, taskId, parameters);
             if (!isSuccess)
             {
                 //dataCalculate节点执行方法
@@ -58,8 +58,8 @@ namespace HangfireDemo.Handlers
         /// </summary>
         /// <param name="dataCalculateNode"></param>
         /// <param name="taskId"></param>
-        /// <param name="parameter"></param>
-        private static bool InvokeDataCalculate(string dataCalculateNode, int taskId, object parameter)
+        /// <param name="parameters"></param>
+        private static bool InvokeDataCalculate(string dataCalculateNode, int taskId, params object[] parameters)
         {
             return true;
         }
